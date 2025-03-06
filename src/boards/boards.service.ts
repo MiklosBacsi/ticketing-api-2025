@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { Boards } from '@prisma/client';
+import { Boards, Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-
 
 @Injectable()
 export class BoardsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createBoardDto: prisma.BoardsCreateInput) {
+  async create(createBoardDto: Prisma.BoardsCreateInput) {
     return await this.prisma.boards.create({
       data: createBoardDto,
     });
@@ -19,20 +18,20 @@ export class BoardsService {
 
   async findOne(id: number) {
     return await this.prisma.boards.findUnique({
-      where: {id: id},
+      where: { id: id },
     });
   }
 
-  async update(id: number, updateBoardDto: prisma.BoardsUpdatInput)) {
+  async update(id: number, updateBoardDto: Prisma.BoardsUpdateInput) {
     return await this.prisma.boards.update({
-      where: {id},
+      where: { id },
       data: updateBoardDto,
     });
   }
 
   async remove(id: number) {
     return await this.prisma.boards.delete({
-      where: {id},
+      where: { id },
     });
   }
 }
